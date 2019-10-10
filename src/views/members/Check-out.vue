@@ -2,7 +2,7 @@
   <div class="check-out">
     <el-row :gutter="20">
       <el-col :span="4">
-        <el-input v-modal="input" placeholder="check-out" :autofocus="true" />
+        <el-input v-model="input" placeholder="check-out" :autofocus="true" />
       </el-col>
       <el-col :span="2.5">
         <el-button type="primary">Search</el-button>

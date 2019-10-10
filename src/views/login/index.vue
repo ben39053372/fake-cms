@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">Physical Cms Portal</h3>
       </div>
 
       <el-form-item prop="username">
@@ -41,6 +41,30 @@
         </span>
       </el-form-item>
 
+      <el-form-item prop="center">
+        <el-input
+          ref="center"
+          v-model="loginForm.center"
+          placeholder="Center"
+          name="center"
+          type="text"
+          tabindex="3"
+          auto-complete="on"
+        />
+      </el-form-item>
+
+      <el-form-item prop="counter">
+        <el-input
+          ref="counter"
+          v-model="loginForm.counter"
+          placeholder="Counter"
+          name="counter"
+          type="text"
+          tabindex="4"
+          auto-complete="on"
+        />
+      </el-form-item>
+
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
       <div class="tips">
@@ -53,13 +77,12 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (value.length === 0) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
@@ -72,14 +95,32 @@ export default {
         callback()
       }
     }
+    const validateCenter = (rule, value, callback) => {
+      if (value.length === 0) {
+        callback(new Error('Please enter the center'))
+      } else {
+        callback()
+      }
+    }
+    const validateCounter = (rule, value, callback) => {
+      if (value.length === 0) {
+        callback(new Error('Please enter the counter'))
+      } else {
+        callback()
+      }
+    }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '900001',
+        password: '123456',
+        center: 'F03',
+        counter: 'A'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        center: [{ required: true, trigger: 'blur', validator: validateCenter }],
+        counter: [{ required: true, trigger: 'blur', validator: validateCounter }]
       },
       loading: false,
       passwordType: 'password',

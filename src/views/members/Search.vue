@@ -7,10 +7,10 @@
         </el-select>
       </el-col>
       <el-col :span="3">
-        <el-input v-modal="input" placeholder="Keyword" :autofocus="true" />
+        <el-input v-model="input" placeholder="Keyword" :autofocus="true" />
       </el-col>
       <el-col :span="3">
-        <el-input v-modal="input" placeholder="Center Code" :autofocus="true" />
+        <el-input v-model="input" placeholder="Center Code" :autofocus="true" />
       </el-col>
       <el-col :span="2">
         <el-button type="primary">Search</el-button>
