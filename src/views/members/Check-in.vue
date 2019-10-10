@@ -40,11 +40,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
       input: '',
       checkList: ['Member Number', 'Name', 'Gender', 'Card Type', 'Membership Status', 'Expiry Date']
+    }
+  },
+  mounted() {
+    this.fetchReqList()
+  },
+  methods: {
+    ...mapActions(['checkIn/getReqList']),
+    fetchReqList() {
+      this['checkIn/getReqList']()
     }
   }
 }

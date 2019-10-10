@@ -46,32 +46,32 @@
 export default {
   data() {
     return {
-      input: "",
+      input: '',
       checkList: [
-        "Member Number",
-        "Name",
-        "Identity",
-        "Locker Key Number"
+        'Member Number',
+        'Name',
+        'Identity',
+        'Locker Key Number'
       ],
       options: [
         {
-          value: "HKID",
-          label: "HKID"
+          value: 'HKID',
+          label: 'HKID'
         },
         {
-          value: "Name",
-          label: "Name"
+          value: 'Name',
+          label: 'Name'
         },
         {
-          value: "MemberNumber",
-          label: "MemberNumber"
+          value: 'MemberNumber',
+          label: 'MemberNumber'
         },
         {
-          value: "LockerKeyNumber",
-          label: "LockerKeyNumber"
+          value: 'LockerKeyNumber',
+          label: 'LockerKeyNumber'
         }
       ],
-      value: "Name"
+      value: 'Name'
     }
   }
 }

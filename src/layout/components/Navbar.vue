@@ -9,7 +9,7 @@
         <!-- show avatar -->
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <!-- <span style="padding: 10px;position: -10px -10">{{name}}</span> -->
+          <p style="padding: 10px;">{{ name }}</p>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -47,7 +47,8 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar'
-    ])
+    ]),
+    name: localStorage.getItem('name')
   },
   methods: {
     toggleSideBar() {

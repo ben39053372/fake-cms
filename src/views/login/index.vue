@@ -41,12 +41,12 @@
         </span>
       </el-form-item>
 
-      <el-form-item prop="center">
+      <el-form-item prop="centre">
         <el-input
-          ref="center"
-          v-model="loginForm.center"
-          placeholder="Center"
-          name="center"
+          ref="centre"
+          v-model="loginForm.centre"
+          placeholder="Centre"
+          name="centre"
           type="text"
           tabindex="3"
           auto-complete="on"
@@ -95,9 +95,9 @@ export default {
         callback()
       }
     }
-    const validateCenter = (rule, value, callback) => {
+    const validateCentre = (rule, value, callback) => {
       if (value.length === 0) {
-        callback(new Error('Please enter the center'))
+        callback(new Error('Please enter the centre'))
       } else {
         callback()
       }
@@ -113,13 +113,13 @@ export default {
       loginForm: {
         username: '900001',
         password: '123456',
-        center: 'F03',
+        centre: 'F03',
         counter: 'A'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }],
-        center: [{ required: true, trigger: 'blur', validator: validateCenter }],
+        centre: [{ required: true, trigger: 'blur', validator: validateCentre }],
         counter: [{ required: true, trigger: 'blur', validator: validateCounter }]
       },
       loading: false,
@@ -158,7 +158,7 @@ export default {
           })
         } else {
           console.log('error submit!!')
-          return false
+          return false 
         }
       })
     }

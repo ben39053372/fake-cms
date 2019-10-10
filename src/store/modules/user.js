@@ -34,8 +34,8 @@ const mutations = {
   },
   SET_COUNTER: (state, counter) => {
     state.counter = counter
-    localStorage.setItem('centre', counter)
-  },
+    localStorage.setItem('counter', counter)
+  }
 }
 
 const actions = {
@@ -47,7 +47,7 @@ const actions = {
     const { username, password, centre, counter } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password, centre, counter }).then(response => {
-        //const { data } = response
+        // const { data } = response
         console.log(response)
         commit('SET_TOKEN', response.userAuth.staffToken)
         commit('SET_NAME', username)

@@ -1,9 +1,14 @@
 import request from '../utils/request'
 
-export function fetchCheckInList(query) {
+const apiKey = process.env.VUE_APP_APIKEY
+
+export function fetchCheckInList(centre, counter, staff, token) {
   return request({
-    url: '/GET/centres/F03/counters/A/checkInRequests/900001',
+    url: `/GET/centres/${centre}/counters/${counter}/checkInRequests/${staff}`,
     method: 'POST',
-    params: {}
+    data: {
+      'apiKey': apiKey,
+      'staffToken': token
+    }
   })
 }
