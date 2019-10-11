@@ -13,3 +13,11 @@ export function setToken(token) {
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }
+
+export const getStaffNumber = () => {
+  return localStorage.getItem('name')
+}
+
+export const getTokenFromLocal = () => {
+  return localStorage.getItem('token')
+}

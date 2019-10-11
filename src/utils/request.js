@@ -43,38 +43,38 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    const res = response.data
-    console.log(res)
+    const res = response
+    console.log('request.js : res:', res.status)
     // if the custom code is not 20000, it is judged as an error.
-    if (res.status !== 20001) {
+    if (res.status !== 200) {
+      // send Message
       Message({
-        message: res.message || 'Error',
+        message: res.message + res.error || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
 
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-          confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
-        })
-      }
+      // if (res.status === 40311) {
+      //   console.log('reLogin')
+      //   this.$store.dispatch('user/login', { username: localStorage['name'], password: localStorage['password'], centre: localStorage['centre'], counter: localStorage['counter'] })
+      // } else {
+      //   console.log('hgdkssa')
+      // }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
-      return res
+      
+      console.log('http res status :', res.status)
+      return res.data
     }
+
+    if()
   },
   error => {
     console.log('err' + error) // for debug
+    console.log('reLogin')
+    store.dispatch('user/login', { username: localStorage['name'], password: localStorage['password'], centre: localStorage['centre'], counter: localStorage['counter'] })
     Message({
-      message: error.message,
+      message: error,
       type: 'error',
       duration: 5 * 1000
     })

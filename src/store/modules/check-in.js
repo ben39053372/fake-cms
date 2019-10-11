@@ -1,7 +1,7 @@
-import { fetchCheckInList } from '@/api/check-in'
+import { fetchCheckInList, confirmCheckIn, cancelCheckIn } from '@/api/check-in'
 
 const state = {
-  requestList: ''
+  requestList: []
 }
 
 const mutations = {
@@ -15,7 +15,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       fetchCheckInList(localStorage['centre'], localStorage['counter'], localStorage['name'], localStorage['token']).then(res => {
         console.log(res)
-        commit('SET_REQUSETLIST', res.checkInQuene)
+        commit('SET_REQUESTLIST', res.checkInQueue)
         resolve()
       }).catch(err => {
         console.log(err)
@@ -23,7 +23,7 @@ const actions = {
       })
     })
   }
-} 
+}
 
 export default {
   namespaced: true,
