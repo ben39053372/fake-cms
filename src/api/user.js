@@ -14,6 +14,17 @@ export function login(data) {
   })
 }
 
+export const refreshToken = () => {
+  return request({
+    url: `/PUT/staffs/${localStorage['name']}/staffToken`,
+    method: 'POST',
+    data: {
+      'apiKey': apiKey,
+      'passwordMD5': MD5(localStorage['name'] + localStorage['password'])
+    }
+  })
+}
+
 export function getInfo(token) {
   return request({
     url: '/user/info',

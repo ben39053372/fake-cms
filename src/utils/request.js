@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { MessageBox, Message, Notification } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
@@ -13,14 +13,6 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    // do something before request is sent
-
-    if (store.getters.token) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
-      //config.headers['X-Token'] = getToken()
-    }
     return config
   },
   error => {
@@ -44,36 +36,35 @@ service.interceptors.response.use(
    */
   response => {
     const res = response
-    console.log('request.js : res:', res.status)
-    // if the custom code is not 20000, it is judged as an error.
-    if (res.status !== 200) {
-      // send Message
-      Message({
+    if (res.status === 200) {
+      console.log(res.status)
+      if (res.data.checkInQueue === undefined && res.data.inCentreCustomerList === undefined) {
+        Notification({
+          message: res.data.info,
+          type: 'success',
+          duration: 5 * 1000
+        })
+      }
+      return res.data
+    } else if (res.status === 403) {
+      console.log(res.status + res.message + 'relogin ...')
+      this.$store.dispatch('user/login', { username: localStorage['name'], password: localStorage['password'], centre: localStorage['centre'], counter: localStorage['counter'] })
+      return res.data
+    } else {
+      console.log(res.status + res.message)
+      Notification({
         message: res.message + res.error || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
-
-      // if (res.status === 40311) {
-      //   console.log('reLogin')
-      //   this.$store.dispatch('user/login', { username: localStorage['name'], password: localStorage['password'], centre: localStorage['centre'], counter: localStorage['counter'] })
-      // } else {
-      //   console.log('hgdkssa')
-      // }
       return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      
-      console.log('http res status :', res.status)
-      return res.data
     }
-
-    if()
   },
   error => {
     console.log('err' + error) // for debug
     console.log('reLogin')
     store.dispatch('user/login', { username: localStorage['name'], password: localStorage['password'], centre: localStorage['centre'], counter: localStorage['counter'] })
-    Message({
+    Notification({
       message: error,
       type: 'error',
       duration: 5 * 1000

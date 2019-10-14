@@ -86,12 +86,12 @@
     <!-- 確認登入 -->
     <el-dialog title="會員資料" :visible.sync="formVisible" width='50%'>
       <h1 slot='title' style="color:'#606266'">會員資料</h1>
-      <el-form label-position="left" label-width="40%" style="padding: 20px">
+      <el-form label-position="left" label-width="40%" style="padding: 20px" :rules="rules">
         <el-form-item v-for='(item,key,index) in checkListProp' :key="index" :label="key">
           {{ requestList.length > 0 ? ( requestList[openedIndex][item] ? requestList[openedIndex][item] : '-' ) : ( '' )}}
         </el-form-item>
         <h1>Check-In</h1>
-        <el-form-item label="Locker Key Number">
+        <el-form-item label="Locker Key Number" prop="keyNum">
           <el-input v-model="checkInForm.keyNum"></el-input>
         </el-form-item>
         <el-form-item label="Towel Coupon Used">
@@ -107,7 +107,7 @@
         </el-form-item>
         <el-form-item>
           <el-button @click="formVisible = false">cancel</el-button>
-          <el-button type='primary' @click="dialogConfirm()">confirm</el-button>
+          <el-button type='primary' @click="dialogConfirm()" :disabled="checkInForm.keyNum? false : true">confirm</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -147,6 +147,11 @@ export default {
         towel: 0,
         oneTowelPerDay: 1,
         physicalCard: 1
+      },
+      rules: {
+        keyNum: [
+          {required: true, message: '請輸入Key Number', trigger: 'blur'}
+        ]
       }
     };
   },
@@ -170,16 +175,14 @@ export default {
     },
     cancel(id) {
       console.log('cancel',id)
-      cancelCheckIn(this.requestList[this.openedIndex].requestId, getStaffNumber(), getTokenFromLocal()).then(() => {
-        console.log(res)
-      })
+      cancelCheckIn(this.requestList[this.openedIndex].requestId, getStaffNumber(), getTokenFromLocal())
       this.formVisible = false
     },
     dialogConfirm() {
       console.log('send confirm')
       confirmCheckIn(this.requestList[this.openedIndex].requestId, this.checkInForm.keyNum, this.checkInForm.towel, this.checkInForm.physicalCard, this.checkInForm.oneTowelPerDay, getStaffNumber(), getTokenFromLocal()).then((res) => {
         console.log('send confirm',res)
-        
+
       })
       this["checkIn/getReqList"]()
       this.formVisible = false
