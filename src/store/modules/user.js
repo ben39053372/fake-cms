@@ -56,9 +56,6 @@ const actions = {
         commit('SET_COUNTER', counter)
         setToken(response.userAuth.staffToken)
         resolve()
-      }).catch(error => {
-        console.log(error)
-        reject(error)
       })
     })
   },
@@ -79,8 +76,6 @@ const actions = {
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         resolve(data)
-      }).catch(error => {
-        reject(error)
       })
     })
   },
@@ -95,8 +90,6 @@ const actions = {
         resetRouter()
         localStorage.clear()
         resolve()
-      }).catch(error => {
-        reject(error)
       })
     })
   },

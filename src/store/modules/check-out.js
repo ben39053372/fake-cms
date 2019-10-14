@@ -16,9 +16,6 @@ const actions = {
         console.log(res)
         commit('SET_CHECKEDINLIST', res.inCentreCustomerList)
         resolve()
-      }).catch(err => {
-        console.log(err)
-        reject(err)
       })
     })
   }

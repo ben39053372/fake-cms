@@ -182,7 +182,6 @@ export default {
       console.log('send confirm')
       confirmCheckIn(this.requestList[this.openedIndex].requestId, this.checkInForm.keyNum, this.checkInForm.towel, this.checkInForm.physicalCard, this.checkInForm.oneTowelPerDay, getStaffNumber(), getTokenFromLocal()).then((res) => {
         console.log('send confirm',res)
-
       })
       this["checkIn/getReqList"]()
       this.formVisible = false
