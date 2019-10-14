@@ -63,7 +63,11 @@ service.interceptors.response.use(
   },
   error => {
     console.log('res error', error) // for debug
-    store.dispatch('user/login', { username: localStorage['name'], password: localStorage['password'], centre: localStorage['centre'], counter: localStorage['counter'] })
+    if (error === 'error: Network Error') {
+      console.log(error)
+    } else {
+      store.dispatch('user/login', { username: localStorage['name'], password: localStorage['password'], centre: localStorage['centre'], counter: localStorage['counter'] })
+    }
     Notification({
       message: error,
       type: 'error',
